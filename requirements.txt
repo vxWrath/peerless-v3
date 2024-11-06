@@ -1,0 +1,9 @@
+asyncpg >= 0.30.0
+colorlog >= 6.9.0
+colorthief >= 0.2.1
+discord >= 2.3.2
+thefuzz >= 0.22.1
+pydantic >= 2.9.2
+python-dotenv >= 1.0.1
+pytz >= 2024.2
+redis >= 5.2.0

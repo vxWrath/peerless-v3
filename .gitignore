@@ -1,0 +1,7 @@
+**/.*
+*.pyc
+
+!.gitignore
+!.env.example
+
+**/test*.py
