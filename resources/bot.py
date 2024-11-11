@@ -16,6 +16,9 @@ intents.members = True
 member_cache_flags = discord.MemberCacheFlags().none()
 member_cache_flags.joined = True
 
+from .database import Database
+from .redis import RedisClient
+
 class Bot(commands.Bot):
     def __init__(self):
         super().__init__(
@@ -26,6 +29,9 @@ class Bot(commands.Bot):
             max_messages = None,
             chunk_guilds_at_startup = False
         )
+
+        self.redis: RedisClient
+        self.database: Database
 
     async def setup_hook(self) -> None:
         await self.load_extensions()
@@ -46,7 +52,7 @@ class Bot(commands.Bot):
             except commands.ExtensionNotLoaded:
                 await self.load_extension(cog)
         
-        dont_load = []
+        dont_load = ['extensions.py']
         for dir_, _, files in os.walk('./commands'):
             for file in files:
                 if not file.endswith('.py') or file in dont_load:

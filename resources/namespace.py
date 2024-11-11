@@ -1,10 +1,10 @@
-from typing import Dict, MutableMapping, TypeVar, Union
+from typing import Dict, Mapping, TypeVar, Union
 
 K = TypeVar('K')
 V = TypeVar('V')
 
 class Namespace(Dict[K, V]):
-    def __init__(self, *args: MutableMapping[K, V], **kwargs: V):
+    def __init__(self, *args: Mapping[K, V], **kwargs: V):
         super().__init__(*args, **kwargs)
 
         for key, value in self.items():
@@ -30,3 +30,6 @@ class Namespace(Dict[K, V]):
             del self[key]
         except KeyError:
             raise AttributeError(f"'Namespace' object has no attribute '{key}'")
+        
+    def has(self, key: K) -> bool:
+        return key in self

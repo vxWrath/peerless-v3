@@ -1,6 +1,8 @@
 from datetime import datetime
 from typing import Any, overload, Union, Dict, List
 
+from .models import League, SubLeague
+
 type ConvertToString = Union[str, int, float, datetime]
 type Convertable = Union[ConvertToString, Dict[ConvertToString, 'Convertable'], List['Convertable']]
 
@@ -50,3 +52,9 @@ def unjsonify(obj: Any) -> Any:
         return int(obj)
     else:
         return obj
+    
+def create_subleague(league: League) -> SubLeague:
+    return SubLeague(
+        league_id=league.id,
+        demands = league.settings.get('demand_limit', 3),
+    )

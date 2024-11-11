@@ -8,7 +8,7 @@ import os
 
 from redis.asyncio.client import Redis
 from redis import ConnectionError as RedisConnectionError
-from typing import TYPE_CHECKING, Type, Self, Optional, Union, Tuple, Dict, Any, MutableMapping
+from typing import TYPE_CHECKING, Type, Self, Optional, Union, Tuple, Dict, Any, Mapping
 
 from .models import BaseModel
 from .namespace import Namespace
@@ -76,7 +76,7 @@ class RedisClient:
             logger.error(f"Couldn't start the redis-server. Error:\n{stderr.decode().strip()}")
             self._ready.set_exception(RuntimeError("Redis-server not started"))
 
-    async def set(self, *path: Union[str, int], model: MutableMapping[str, Any], expire: int=60*60) -> Namespace[str, Any]:
+    async def set(self, *path: Union[str, int], model: Mapping[str, Any], expire: int=60*60) -> Namespace[str, Any]:
         route = ":".join([str(x) for x in path])
 
         if isinstance(model, BaseModel):
