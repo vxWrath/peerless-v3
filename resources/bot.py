@@ -21,7 +21,7 @@ from .database import Database
 from .redis import RedisClient
 
 class Bot(commands.Bot):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(
             command_prefix = [],
             tree_cls = AppCommandTree,
