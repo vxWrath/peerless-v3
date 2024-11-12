@@ -18,7 +18,7 @@ class Namespace[K, V](Dict[K, V]):
         ...
 
     def __init__(self, mapping={}, /, **kwargs: V) -> None:
-        super().__init__(*mapping, **kwargs)
+        super().__init__(mapping, **kwargs)
 
         for key, value in self.items():
             if isinstance(value, dict):
