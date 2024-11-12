@@ -54,12 +54,14 @@ class League(BaseModel):
             if role_id in role_ids:
                 return key
             
-        for key, role_ids in self.pings.items():
-            _, ids = role_ids.split(':')
+        for key, ping_ids in self.pings.items():
+            _, ids = ping_ids.split(':')
             role_ids = [int(x) for x in ids.split('-')]
 
             if role_id in role_ids:
                 return key
+            
+        return None
 
     async def add_role(self, key: str, role_id: int, *, sync: Optional[bool]=False) -> None:
         if not self.roles.get(key):
@@ -108,15 +110,16 @@ class League(BaseModel):
 
     async def get_channel(self, key: str) -> Optional[discord.abc.GuildChannel | discord.Thread]:
         if not self.guild:
-            return
+            return None
         
         if not (channel_id := self.channels.get(key)):
-            return
+            return None
         
         channel = self.guild.get_channel_or_thread(channel_id)
 
         if not channel:
-            return await self.remove_channel(key, sync=True)
+            await self.remove_channel(key, sync=True)
+            return None
         return channel
 
     async def remove_role(self, role_id: int, *, sync: Optional[bool]=False) -> None:

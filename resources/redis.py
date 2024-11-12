@@ -82,7 +82,7 @@ class RedisClient:
         if isinstance(model, BaseModel):
             data = jsonify(model.model_dump(exclude_defaults=True))
         else:
-            data = jsonify(model)
+            data = dict(jsonify(model))
 
         async with self.client.pipeline() as pipe:
             await pipe.set(route, json.dumps(data))
@@ -95,7 +95,7 @@ class RedisClient:
         item = await self.client.get(":".join([str(x) for x in path]))
 
         if not item:
-            return
+            return None
         return model_cls(**unjsonify(json.loads(item)))
 
     async def delete(self, *paths: Union[Tuple[Union[str, int]], str, int]) -> None:
@@ -108,3 +108,4 @@ class RedisClient:
                 path_dict[None].append(path)
 
         await self.client.delete(*[":".join(map(str, path)) for path in path_dict.values()])
+        return None

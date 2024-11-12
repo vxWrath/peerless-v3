@@ -7,6 +7,7 @@ import sys
 
 from discord.app_commands import Command, CommandTree
 from discord.ext import commands
+from typing import List
 
 intents = discord.Intents.none()
 intents.guilds  = True
@@ -43,8 +44,8 @@ class Bot(commands.Bot):
         logger.info(f"Logged in - {self.user.name} ({self.application_id})")
         logger.info(f"Loaded {len([x for x in self.tree.walk_commands() if isinstance(x, Command)])} Commands")
 
-    async def load_extensions(self):
-        self._cogs_ = []
+    async def load_extensions(self) -> None:
+        self._cogs_: List[str] = []
         
         for cog in self._cogs_:
             try:
@@ -64,13 +65,17 @@ class Bot(commands.Bot):
                     await self.reload_extension(self._cogs_[-1])
                 except commands.ExtensionNotLoaded:
                     await self.load_extension(self._cogs_[-1])
+
+        return None
                     
-    async def unload_extensions(self):
+    async def unload_extensions(self) -> None:
         for i in range(0, len(self._cogs_)):
             try:
                 await self.unload_extension(self._cogs_[i])
             except commands.ExtensionNotLoaded:
                 pass
+
+        return None
 
 class AppCommandTree(CommandTree[Bot]):
     pass

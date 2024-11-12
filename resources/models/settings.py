@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Optional, Self, List, Any, Coroutine, Type, Ca
 
 from .base import BaseModel
 from .data import League
-from ..baseview import BaseView
+#from ..baseview import BaseView
 
 if TYPE_CHECKING:
     from ..bot import Bot
@@ -32,9 +32,9 @@ class Category(BaseModel):
     def to_choice(self) -> app_commands.Choice:
         return app_commands.Choice(name=self.name, value=self.value)
 
-    def to_button(self, callback: Callable[[discord.Interaction[Bot]], None]) -> ui.Button:
+    def to_button(self, callback: Callable[[discord.Interaction[Bot]], Coroutine[Any, Any, Any]]) -> ui.Button:
         button: ui.Button = ui.Button(label=self.name, emoji=self.emoji, style=getattr(discord.ButtonStyle, self._parent.style))
-        button.callback = callback
+        button.callback = lambda interaction: callback(interaction) # type: ignore[arg-type,method-assign]
         
         return button
     
@@ -63,7 +63,7 @@ class SettingType(BaseModel):
     database: str
     string: Callable[[League, Setting], Coroutine[Any, Any, str]]
 
-    view: Type[BaseView] | None
+    #view: Type[BaseView] | None
     
 class Option(BaseModel):
     name: str
