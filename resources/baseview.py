@@ -3,7 +3,7 @@ from __future__ import annotations
 import discord
 
 from discord.ui.select import BaseSelect
-from typing import TYPE_CHECKING, Optional, List, Callable, Self, Union
+from typing import TYPE_CHECKING, Optional, List, Callable, Self, Union, Sequence
 
 from .models import BeforeView, BeforeInteraction
 from .utils import respond
@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from .bot import Bot
 
 class BaseView(discord.ui.View):
-    children: List[discord.ui.Button | BaseSelect]
+    children: List[discord.ui.Button[Self] | BaseSelect[Self]] # type: ignore[assignment]
     checks: List[Callable[[Self, discord.Interaction[Bot]], bool]] = []
 
     def __init__(self, 
@@ -38,17 +38,17 @@ class BaseView(discord.ui.View):
             return
         
         keys  = self.before.components.keys()
-        names = [(i, self.children[i].callback.callback.__name__) for i in range(len(self.children))]
+        names = [(i, self.children[i].callback.callback.__name__) for i in range(len(self.children))] # type: ignore[attr-defined]
 
         for index, name in names:
             if name in keys:
                 self.children[index].custom_id = f"{name}:{self.children[index].custom_id}"
 
-    async def interaction_check(self, interaction: discord.Interaction[Bot]) -> bool:
+    async def interaction_check(self, interaction: discord.Interaction[Bot]) -> bool: # type: ignore[override]
         interaction.extras['before_interaction'] = None
 
         if self.before and self.before.components:
-            name, *_ = interaction.data['custom_id'].split(':') # type: ignore
+            name, *_ = interaction.data['custom_id'].split(':') # type: ignore[index,typeddict-item]
             interaction.extras['before_interaction'] = self.before.components.get(name)
 
         if self.before and self.before.all_components and not interaction.extras['before_interaction']:
@@ -69,7 +69,7 @@ class BaseView(discord.ui.View):
                 return False
         else:
             for check in self.checks:
-                if not await discord.utils.maybe_coroutine(check, self, interaction):
+                if not await discord.utils.maybe_coroutine(check, self, interaction): # type: ignore[arg-type]
                     return False
 
         return True
@@ -89,7 +89,7 @@ class BaseView(discord.ui.View):
         except discord.HTTPException:
             pass
 
-    async def on_error(self, interaction: discord.Interaction[Bot], error: discord.app_commands.AppCommandError, _) -> None:
+    async def on_error(self, interaction: discord.Interaction[Bot], error: discord.app_commands.AppCommandError, _) -> None: # type: ignore[override]
         return await interaction.client.tree.on_error(interaction, error)
     
     async def cancel_view(self):
@@ -109,7 +109,7 @@ class BaseView(discord.ui.View):
         return func
     
 class BaseModal(discord.ui.Modal):
-    children: List[discord.ui.TextInput[Self]]
+    children: Sequence[discord.ui.TextInput[Self]] # type: ignore[assignment]
 
     def __init__(self, 
             timeout: Optional[int]=120,
@@ -123,7 +123,7 @@ class BaseModal(discord.ui.Modal):
         self.interaction = interaction
         self.before_interaction = before_interaction
 
-    async def interaction_check(self, interaction: discord.Interaction[Bot]) -> bool:
+    async def interaction_check(self, interaction: discord.Interaction[Bot]) -> bool: # type: ignore[override]
         interaction.extras['before_interaction'] = self.before_interaction
         return await interaction.client.tree.interaction_check(interaction)
     
@@ -136,5 +136,5 @@ class BaseModal(discord.ui.Modal):
         except discord.HTTPException:
             pass
 
-    async def on_error(self, interaction: discord.Interaction[Bot], error: discord.app_commands.AppCommandError) -> None:
+    async def on_error(self, interaction: discord.Interaction[Bot], error: discord.app_commands.AppCommandError) -> None: # type: ignore[override]
         return await interaction.client.tree.on_error(interaction, error)

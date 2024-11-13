@@ -68,10 +68,12 @@ async def respond(interaction: discord.Interaction[Bot], **kwargs) -> Optional[d
     if interaction.response.is_done():
         return await interaction.followup.send(**kwargs)
     else:
-        return await interaction.response.send_message(**kwargs)
+        await interaction.response.send_message(**kwargs)
+        return None
     
 async def respond_with_edit(interaction: discord.Interaction[Bot], **kwargs) -> Optional[discord.InteractionMessage]:
     if interaction.response.is_done():
         return await interaction.edit_original_response(**kwargs)
     else:
-        return await interaction.response.edit_message(**kwargs)
+        await interaction.response.edit_message(**kwargs)
+        return None

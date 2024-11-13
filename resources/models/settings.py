@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Optional, Self, List, Any, Coroutine, Type, Ca
 
 from .base import BaseModel
 from .data import League
-#from ..baseview import BaseView
+from ..baseview import BaseView
 
 if TYPE_CHECKING:
     from ..bot import Bot
@@ -63,7 +63,7 @@ class SettingType(BaseModel):
     database: str
     string: Callable[[League, Setting], Coroutine[Any, Any, str]]
 
-    #view: Type[BaseView] | None
+    view: Type[BaseView] | None
     
 class Option(BaseModel):
     name: str
