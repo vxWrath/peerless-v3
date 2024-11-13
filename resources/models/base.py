@@ -9,4 +9,4 @@ class BaseModel(PydanticBaseModel, Mapping):
         return getattr(self, key)
     
     def __len__(self) -> int:
-        return len(dict(self))
+        return len(self.model_dump())

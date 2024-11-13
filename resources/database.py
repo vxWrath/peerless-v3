@@ -105,6 +105,8 @@ class Database:
 
         if league is None:
             league = League(id=league_id, _database=self)
+            await self.insert(league)
+            print('...')
 
         return league
     
