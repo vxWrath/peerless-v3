@@ -1,7 +1,12 @@
+import discord
+
 from datetime import datetime
-from typing import Any, overload, Union, Dict, List
+from typing import TYPE_CHECKING, Any, overload, Union, Dict, List, Optional
 
 from .models import League, SubLeague
+
+if TYPE_CHECKING:
+    from .bot import Bot
 
 type ConvertToString = Union[str, int, float, datetime]
 type Convertable = Union[ConvertToString, Dict[ConvertToString, 'Convertable'], List['Convertable']]
@@ -58,3 +63,15 @@ def create_subleague(league: League) -> SubLeague:
         league_id=league.id,
         demands = league.settings.get('demand_limit', 3),
     )
+
+async def respond(interaction: discord.Interaction[Bot], **kwargs) -> Optional[discord.WebhookMessage]:
+    if interaction.response.is_done():
+        return await interaction.followup.send(**kwargs)
+    else:
+        return await interaction.response.send_message(**kwargs)
+    
+async def respond_with_edit(interaction: discord.Interaction[Bot], **kwargs) -> Optional[discord.InteractionMessage]:
+    if interaction.response.is_done():
+        return await interaction.edit_original_response(**kwargs)
+    else:
+        return await interaction.response.edit_message(**kwargs)
