@@ -53,7 +53,7 @@ class Bot(commands.Bot):
             except commands.ExtensionNotLoaded:
                 await self.load_extension(cog)
         
-        dont_load = ['extensions.py']
+        dont_load = []
         for dir_, _, files in os.walk('./commands'):
             for file in files:
                 if not file.endswith('.py') or file in dont_load:

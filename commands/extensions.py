@@ -19,7 +19,7 @@ class Sync(commands.Cog):
         description='(un)load the cogs & (un)sync the commands', 
         extras={'before': BeforeInteraction(defer=True, ephemerally=True)},
     )
-    @app_commands.describe(command="the command to execute", globally="whether to globally (un)sync the commands", guild="the guild to (un)sync")
+    @app_commands.describe(command="the command to execute", globally="whether to globally (un)sync the commands", guild_str="the guild to (un)sync")
     @app_commands.rename(guild_str='guild')
     @developer_only()
     async def sync(self, interaction: discord.Interaction[Bot], 
@@ -57,7 +57,7 @@ class Sync(commands.Cog):
                     if sync_globally:
                         await self.bot.tree.sync()
                     else:
-                        if not guild == "*":
+                        if guild_str != "*":
                             self.bot.tree.copy_global_to(guild=discord.Object(id=guild.id))
                         await self.bot.tree.sync(guild=guild)
                         
