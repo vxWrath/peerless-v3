@@ -1,6 +1,6 @@
-from typing import Mapping, Dict, List, Tuple, Union, Optional, Iterator, overload
+from typing import Mapping, Any, overload
 
-class Namespace[K, V](Dict[K, V]):
+class Namespace[K, V](dict[K, V]):
     @overload
     def __init__(self, /) -> None:
         ...
@@ -17,7 +17,7 @@ class Namespace[K, V](Dict[K, V]):
     def __init__(self: 'Namespace[str, V]', mapping: Mapping[str, V], /, **kwargs: V) -> None: # type: ignore[reportInvalidTypeVarUse]
         ...
 
-    def __init__(self, mapping={}, /, **kwargs: V) -> None:
+    def __init__(self, mapping: Mapping[Any, Any]={}, /, **kwargs: V) -> None:
         super().__init__(mapping, **kwargs)
 
         for key, value in self.items():
