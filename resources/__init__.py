@@ -7,6 +7,7 @@ from .database import Database
 from .namespace import Namespace
 from .redis import RedisClient
 from .exceptions import BotException, CheckFailure, RolesAlreadyManaged, RolesAlreadyUsed, RolesNotAssignable, TeamWithoutRole, NotEnoughTeams
+from .settings import SECTIONS, CATEGORIES, SETTINGS, SETTINGTYPES, TIMEZONES
 from .utils import (
     jsonify, 
     unjsonify,

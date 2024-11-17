@@ -1,0 +1,809 @@
+[
+    {
+        "name": "Admin",
+        "value": "admin",
+        "emoji": "⚠️",
+        "style": "green",
+        "categories": [
+            {
+                "name": "Customization",
+                "value": "customization",
+                "description": "Set a color for every embed and other similiar things.",
+                "emoji": "🎨",
+                "settings": [
+                    {
+                        "name": "Embed Color",
+                        "value": "embed_color",
+                        "default": [],
+                        "type": "theme",
+                        "description": "How most embed colors look",
+                        "emoji": "🎨",
+                        "required": true
+                    }
+                ]
+            },
+            {
+                "name": "League Management",
+                "value": "management",
+                "description": "The channels & staff that help manage your league such as operators, referees, and similiar jobs.",
+                "emoji": "👮‍♂️",
+                "settings": [ 
+                    {
+                        "name": "Admin Roles",
+                        "value": "admin_roles",
+                        "default": [],
+                        "type": "role",
+                        "description": "Users with any these roles will be able to use every command on the bot",
+                        "emoji": "🥇",
+                        "required": true
+                    },
+                    {
+                        "name": "Operation Roles",
+                        "value": "operation_roles",
+                        "default": [],
+                        "type": "role",
+                        "description": "Gives users permission to use every franchise management command (/appoint, /disband, etc)",
+                        "emoji": "🥈",
+                        "required": true
+                    },
+                    {
+                        "name": "Alerts/Notices",
+                        "value": "alerts",
+                        "default": null,
+                        "type": "channel",
+                        "description": "The channel where all league events (appoints, disbands, etc) are sent to",
+                        "emoji": "🚨",
+                        "required": true
+                    },
+                    {
+                        "name": "Setting Changes",
+                        "value": "setting_changes",
+                        "default": null,
+                        "type": "channel",
+                        "description": "Where all setting changes within the bot are logged",
+                        "emoji": "⚙️",
+                        "required": false
+                    },
+                    {
+                        "name": "Referee Roles",
+                        "value": "referee_roles",
+                        "default": [],
+                        "type": "role",
+                        "description": "Officials who oversee the rules and regulations of a game; makes verdicts on /challenge requests",
+                        "emoji": "👮‍♂️",
+                        "required": false
+                    },
+                    {
+                        "name": "Decisions",
+                        "value": "decisions_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "Where the final verdict of a /challenge request is sent",
+                        "emoji": "🧠",
+                        "required": false
+                    },
+                    {
+                        "name": "Challenges",
+                        "value": "challenges_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "A channel where all admins/referees can view /challenge requests",
+                        "emoji": "🥊",
+                        "required": false
+                    },
+                    {
+                        "name": "Streamer/Broadcaster Roles",
+                        "value": "streamer_roles",
+                        "default": [],
+                        "type": "role",
+                        "description": "A person who records live games and possibly commentates",
+                        "emoji": "📹",
+                        "required": false
+                    },
+                    {
+                        "name": "Streams/Broadcasts",
+                        "value": "streams_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where all streams/broadcasts will be sent",
+                        "emoji": "🎥",
+                        "required": false
+                    },
+                    {
+                        "name": "Streams/Broadcasts Ping Roles",
+                        "value": "streams_ping_roles",
+                        "default": "1:0",
+                        "type": "ping",
+                        "description": "When a stream/broadcast is posted, it will ping the appropriate roles",
+                        "emoji": "🔔",
+                        "required": false
+                    },
+                    {
+                        "name": "Timezone",
+                        "value": "timezone",
+                        "default": "America/New_York",
+                        "type": "timezone",
+                        "description": "The timezone in which your league operates in",
+                        "emoji": "⏰",
+                        "required": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "League",
+        "value": "league",
+        "emoji": "🏗",
+        "style": "blurple",
+        "categories": [
+            {
+                "name": "Season",
+                "value": "season",
+                "description": "Season related options like schedules, standings, games, and other settings alike.",
+                "emoji": "📅",
+                "settings": []
+            },
+            {
+                "name": "Franchise",
+                "value": "franchise",
+                "description": "Franchise-specific settings like handling candidates, team owner management, and notifications regarding team owner events.",
+                "emoji": "👔",
+                "settings": [
+                    {
+                        "name": "Team Owner List",
+                        "value": "team_owner_list_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "An automatically updating message that displays every team owner",
+                        "emoji": "📰",
+                        "required": false
+                    },
+                    {
+                        "name": "New Owner Appointed",
+                        "value": "new_owner_appointed_alert",
+                        "default": true,
+                        "type": "alert",
+                        "description": "An alert that is sent when a new team owner is appointed",
+                        "emoji": "💥",
+                        "required": false
+                    },
+                    {
+                        "name": "Owner Leave",
+                        "value": "owner_leave_alert",
+                        "default": true,
+                        "type": "alert",
+                        "description": "An alert that is sent when a team owner leaves the league",
+                        "emoji": "👻",
+                        "required": false
+                    },
+                    {
+                        "name": "Ping Staff on Owner Leave",
+                        "value": "ping_staff_on_owner_leave_status",
+                        "default": false,
+                        "type": "status",
+                        "description": "This will ping the admin & league manager roles when a team owner leaves",
+                        "emoji": "🏅",
+                        "required": false
+                    },
+                    {
+                        "name": "Candidate System",
+                        "value": "candidate_system",
+                        "default": 1,
+                        "type": "option",
+                        "description": "This is how candidates will fill up open teams. Whether that be off, a traditional queue system, or just a ping.",
+                        "emoji": "⌚",
+                        "required": false,
+                        "options": [
+                            {
+                                "name": "Off",
+                                "description": "This turns the candidate system completely off",
+                                "emoji": "🔗"
+                            },
+                            {
+                                "name": "Queue",
+                                "description": "First person in queue will be given team owner",
+                                "emoji": "🚧"
+                            },
+                            {
+                                "name": "Ping",
+                                "description": "When a team is opened, it will ping the candidate roles",
+                                "emoji": "📢"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Candidate Roles",
+                        "value": "candidate_roles",
+                        "default": null,
+                        "type": "role",
+                        "description": "These roles will be given to users who are in the candidate queue",
+                        "emoji": "🎫",
+                        "required": false
+                    },
+                    {
+                        "name": "Open Teams",
+                        "value": "open_teams_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where candidates will be pinged when there is an open team",
+                        "emoji": "📬",
+                        "required": false
+                    },
+                    {
+                        "name": "Team Owner Blacklist",
+                        "value": "team_owner_blacklist_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not the team owner blacklist works",
+                        "emoji": "🔴",
+                        "required": false
+                    },
+                    {
+                        "name": "Blacklisted Roles",
+                        "value": "blacklisted_roles",
+                        "default": null,
+                        "type": "role",
+                        "description": "Users who are blacklisted from owning teams will be given these roles",
+                        "emoji": "🚩",
+                        "required": false
+                    }
+                ]
+            },
+            {
+                "name": "Roster",
+                "value": "roster",
+                "description": "Roster management that includes the roster cap, warnings about roster minimums, LFP/LFT, and roster events (player leave, player demand, etc)",
+                "emoji": "🎽",
+                "settings": [
+                    {
+                        "name": "Roster Cap",
+                        "value": "roster_cap",
+                        "default": 20,
+                        "type": "number",
+                        "description": "This number limits the amount of players each team can have",
+                        "emoji": "🔟",
+                        "required": true,
+                        "minimum": 1,
+                        "maximum": 1000
+                    },
+                    {
+                        "name": "Roster Minimum Amount",
+                        "value": "roster_minimum_amount",
+                        "default": 10,
+                        "type": "number",
+                        "description": "The threshold of how many players each team should have on the roster (make this number 0 to turn it off)",
+                        "emoji": "📊",
+                        "required": true,
+                        "minimum": 0,
+                        "maximum": null
+                    },
+                    {
+                        "name": "Roster Minimum Delay",
+                        "value": "roster_minimum_delay",
+                        "default": 2,
+                        "type": "day",
+                        "description": "How long to wait before warning team owners that they are below the roster minimum",
+                        "emoji": "🕰",
+                        "required": false,
+                        "minimum": 1,
+                        "maximum": 500
+                    },
+                    {
+                        "name": "Roster Minimim Warnings",
+                        "value": "roster_minimum_warnings",
+                        "default": 3,
+                        "type": "number",
+                        "description": "How many warnings each team gets before the warnings stop or they are automically disbanded",
+                        "emoji": "⚠️",
+                        "required": false,
+                        "minimum": 0,
+                        "maximum": 10
+                    },
+                    {
+                        "name": "Roster Minimum Auto-Disband",
+                        "value": "roster_minimum_auto_disband_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to automically disband a team after they have been warned a certain amount of times",
+                        "emoji": "💀",
+                        "required": false
+                    },
+                    {
+                        "name": "Team Disbanded",
+                        "value": "team_disbanded_alert",
+                        "default": true,
+                        "type": "alert",
+                        "description": "An alert that is sent when a team gets disbanded",
+                        "emoji": "⭕",
+                        "required": false
+                    },
+                    {
+                        "name": "Player Leave",
+                        "value": "player_leave_alert",
+                        "default": true,
+                        "type": "alert",
+                        "description": "An alert that is sent when a player on a team leaves the league",
+                        "emoji": "👎",
+                        "required": false
+                    },
+                    {
+                        "name": "DM Team Owner on Player Leave",
+                        "value": "dm_owner_on_player_leave_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "This setting will try to DM the player's team owner and tell them that they left the league",
+                        "emoji": "💬",
+                        "required": false
+                    },
+                    {
+                        "name": "Player Demand",
+                        "value": "player_demand_alert",
+                        "default": true,
+                        "type": "alert",
+                        "description": "An alert that is sent when a player demands from their team",
+                        "emoji": "🐍",
+                        "required": false
+                    },
+                    {
+                        "name": "DM Team Owner on Player Demand",
+                        "value": "dm_owner_on_player_demand_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "This setting will try to DM the player's team owner and tell them that they demanded a release",
+                        "emoji": "👁",
+                        "required": false
+                    },
+                    {
+                        "name": "Looking for Players (LFP)",
+                        "value": "lfp_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "Coaches will be able to send a message with what their team is in need of",
+                        "emoji": "🎯",
+                        "required": false
+                    },
+                    {
+                        "name": "Looking for Team (LFT)",
+                        "value": "lft_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "Free agents will be able to send a message with what they have to offer",
+                        "emoji": "👀",
+                        "required": false
+                    }
+                ]
+            },
+            {
+                "name": "Suspensions",
+                "value": "suspensions",
+                "description": "Suspension settings, notifications, and options for automated unsuspensions.",
+                "emoji": "⛔",
+                "settings": [
+                    {
+                        "name": "Suspensions",
+                        "value": "suspensions_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is the channel where all suspensions/unsuspensions will be logged",
+                        "emoji": "⛔",
+                        "required": false
+                    },
+                    {
+                        "name": "Suspended Roles",
+                        "value": "suspended_roles",
+                        "default": null,
+                        "type": "role",
+                        "description": "When a user is suspended, they will be given these roles",
+                        "emoji": "🛑",
+                        "required": false
+                    },
+                    {
+                        "name": "Auto-Unsuspend",
+                        "value": "auto_unsuspend",
+                        "default": 0,
+                        "type": "option",
+                        "description": "Whether to automatically unsuspended when time is served, ask for confirmation to unsuspended when time is served, or just be disabled",
+                        "emoji": "🚨",
+                        "required": false,
+                        "options": [
+                            {
+                                "name": "Enabled",
+                                "description": "Players automatically unsuspended when time is up",
+                                "emoji": "💚"
+                            },
+                            {
+                                "name": "Confirmation",
+                                "description": "An admin will have to confirm the unsuspension",
+                                "emoji": "🤍"
+                            },
+                            {
+                                "name": "Disabled",
+                                "description": "Nothing will happen when a suspension is served",
+                                "emoji": "❤"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Transactions",
+        "value": "transactions",
+        "emoji": "🏆",
+        "style": "red",
+        "categories": [
+            {
+                "name": "Transactions",
+                "value": "transactions",
+                "description": "Team transactions, including contracts, signings, releases, trades, and promotions/demotions.",
+                "emoji": "💵",
+                "settings": [
+                    {
+                        "name": "Transaction Theme",
+                        "value": "transactions_theme",
+                        "default": 1,
+                        "type": "theme",
+                        "description": "How transaction messages are sent and how they look",
+                        "emoji": "🎨",
+                        "required": true
+                    },
+                    {
+                        "name": "Transaction Channel",
+                        "value": "transactions_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where all offers, contracts, signings, releasings, and promotions/demotions send to",
+                        "emoji": "💵",
+                        "required": true
+                    },
+                    {
+                        "name": "Transaction Type",
+                        "value": "transaction_type",
+                        "default": 0,
+                        "type": "option",
+                        "description": "The type of transactions in this server, whether that be basic or a salary system",
+                        "emoji": "💸",
+                        "required": true,
+                        "options": [
+                            {
+                                "name": "Basic",
+                                "description": "Regular transaction commands with no incentives",
+                                "emoji": "⭐"
+                            },
+                            {
+                                "name": "Salary",
+                                "description": "Teams have salary caps and players are signed with /offer",
+                                "emoji": "🌟"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Salary Cap",
+                        "value": "salary_cap",
+                        "default": 10000,
+                        "type": "number",
+                        "description": "The amount of money each team has available",
+                        "emoji": "💰",
+                        "required": false,
+                        "minimum": 1,
+                        "maximum": 999999999
+                    },
+                    {
+                        "name": "Free Agent Roles",
+                        "value": "free_agent_roles",
+                        "default": null,
+                        "type": "role",
+                        "description": "These roles will be added/removed when a player is signed/released",
+                        "emoji": "🛒",
+                        "required": true
+                    },
+                    {
+                        "name": "Eligible Roles",
+                        "value": "eligible_roles",
+                        "default": null,
+                        "type": "role",
+                        "description": "These roles will be required for a player to be able to signed to a team",
+                        "emoji": "✅",
+                        "required": false
+                    },
+                    {
+                        "name": "Require All Eligible Roles",
+                        "value": "require_all_eligible_roles_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether to require all eligible roles or just one",
+                        "emoji": "🔋",
+                        "required": false
+                    },
+                    {
+                        "name": "Force Sign Button",
+                        "value": "force_sign_button_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "When users are signed with /sign, there is a button they can click if they were forcibly signed to a team",
+                        "emoji": "❌",
+                        "required": false
+                    }
+                ]
+            },
+            {
+                "name": "Transaction Extras",
+                "value": "transaction_extras",
+                "description": "This category contains extra transaction settings such as each channel and status for every transaction category",
+                "emoji": "💳",
+                "settings": [
+                    {
+                        "name": "Allow Transactions",
+                        "value": "transactions_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow any transaction (overrides all)",
+                        "emoji": "💲",
+                        "required": false
+                    },
+                    {
+                        "name": "Contract Channel",
+                        "value": "contracts_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where all contracts will be sent (overrides transaction channel)",
+                        "emoji": "📝",
+                        "required": false
+                    },
+                    {
+                        "name": "Allow Contracts",
+                        "value": "contracts_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow contracts to be offered to players",
+                        "emoji": "📁",
+                        "required": false
+                    },
+                    {
+                        "name": "Offers Channel",
+                        "value": "offers_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where all accepted offers to join a team will be sent (overrides transaction channel)",
+                        "emoji": "🎁",
+                        "required": false
+                    },
+                    {
+                        "name": "Allow Offers",
+                        "value": "offers_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow offers to be sent to players",
+                        "emoji": "🗳",
+                        "required": false
+                    },
+                    {
+                        "name": "Signing Channel",
+                        "value": "signing_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where all signed player messages will be sent (overrides transaction channel)",
+                        "emoji": "📑",
+                        "required": false
+                    },
+                    {
+                        "name": "Allow Signing",
+                        "value": "signing_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow signing with /sign",
+                        "emoji": "🚥",
+                        "required": false
+                    },
+                    {
+                        "name": "Releasing Channel",
+                        "value": "releasing_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where all player release messages are sent (overrides transaction channel)",
+                        "emoji": "📛",
+                        "required": false
+                    },
+                    {
+                        "name": "Allow Releasing",
+                        "value": "releasing_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow releasing players from teams",
+                        "emoji": "🧤",
+                        "required": false
+                    },
+                    {
+                        "name": "Promotion Channel",
+                        "value": "promotions_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where all coach & player promotions will go (overrides transaction channel)",
+                        "emoji": "👍",
+                        "required": false
+                    },
+                    {
+                        "name": "Allow Promotions",
+                        "value": "promotions_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow coach & player promotions",
+                        "emoji": "👊",
+                        "required": false
+                    },
+                    {
+                        "name": "Demotion Channel",
+                        "value": "demotions_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where all coach & player demotions will go (overrides transaction channel)",
+                        "emoji": "👎",
+                        "required": false
+                    },
+                    {
+                        "name": "Allow Demotions",
+                        "value": "demotions_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow coach & player demotions",
+                        "emoji": "🔻",
+                        "required": false
+                    },
+                    {
+                        "name": "Trade Channel",
+                        "value": "trades_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "The channel where all completed trades will go and where the trade request threads will be created",
+                        "emoji": "🔁",
+                        "required": false
+                    },
+                    {
+                        "name": "Allow Trades",
+                        "value": "trades_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow players to be traded to different teams",
+                        "emoji": "🦺",
+                        "required": false
+                    }
+                ]
+            },
+            {
+                "name": "Demands",
+                "value": "demands",
+                "description": "Configurations for demand types and associated settings like amount and waiting time.",
+                "emoji": "🐍",
+                "settings": [
+                    {
+                        "name": "Demands Channel",
+                        "value": "demands_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "The channel where all demand releases will be sent",
+                        "emoji": "⚔️",
+                        "required": false
+                    },
+                    {
+                        "name": "Demand System",
+                        "value": "demand_system",
+                        "default": 0,
+                        "type": "option",
+                        "description": "This is how demands work whether that be an amount, a cooldown, or a combination of both",
+                        "emoji": "📥",
+                        "required": true,
+                        "options": [
+                            {
+                                "name": "Amount",
+                                "description": "A specific amount of demands that players can use",
+                                "emoji": "🔢"
+                            },
+                            {
+                                "name": "Cooldown",
+                                "description": "Players must wait before demanding again",
+                                "emoji": "💧"
+                            },
+                            {
+                                "name": "Combination",
+                                "description": "A specific amount and a cooldown between each demand",
+                                "emoji": "🚿"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Demand Amount Per Player",
+                        "value": "demand_amount",
+                        "default": 3,
+                        "type": "number",
+                        "description": "How many demands each player will get",
+                        "emoji": "🔢",
+                        "required": false,
+                        "minimum": 0,
+                        "maximum": 10
+                    },
+                    {
+                        "name": "Demand Cooldown",
+                        "value": "demand_cooldown",
+                        "default": 5,
+                        "type": "day",
+                        "description": "How long players will have to wait before they can demand again",
+                        "emoji": "💧",
+                        "required": false,
+                        "minimum": 1,
+                        "maximum": 500
+                    },
+                    {
+                        "name": "Allow Demands",
+                        "value": "demands_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow players to demand a relase from their team",
+                        "emoji": "🐍",
+                        "required": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Other",
+        "value": "other",
+        "emoji": "⚙️",
+        "style": "gray",
+        "categories": [
+            {
+                "name": "Pickups",
+                "value": "pickups",
+                "description": "Settings for pickups/qbbs.",
+                "emoji": "🏅",
+                "settings": [
+                    {
+                        "name": "Pickups Channel",
+                        "value": "pickups_channel",
+                        "default": null,
+                        "type": "channel",
+                        "description": "This is where all pickup game links will be sent",
+                        "emoji": "🏈",
+                        "required": false
+                    },
+                    {
+                        "name": "Allow Pickups",
+                        "value": "pickups_status",
+                        "default": true,
+                        "type": "status",
+                        "description": "Whether or not to allow pickup games",
+                        "emoji": "🏀",
+                        "required": false
+                    },
+                    {
+                        "name": "Pickups Host/Captain Roles",
+                        "value": "captain_roles",
+                        "default": null,
+                        "type": "role",
+                        "description": "These roles will be allowed to host pickup games",
+                        "emoji": "⚽",
+                        "required": false
+                    },
+                    {
+                        "name": "Pickups Ping Roles",
+                        "value": "pickups_ping_roles",
+                        "default": "1:0",
+                        "type": "ping",
+                        "description": "When a pickup game is posted, it will ping the appropriate roles",
+                        "emoji": "🔮",
+                        "required": false
+                    }
+                ]
+            },
+            {
+                "name": "Reset",
+                "value": "reset",
+                "description": "Reset all settings or entire categories",
+                "emoji": "🔺",
+                "settings": []
+            }
+        ]
+    }
+]

@@ -3,8 +3,7 @@ from __future__ import annotations
 import discord
 
 from discord import app_commands, ui
-from pydantic import field_validator
-from typing import TYPE_CHECKING, Optional, Self, List, Any, Coroutine, Type, Callable
+from typing import TYPE_CHECKING, Optional, List, Any, Coroutine, Type, Callable
 
 from .base import BaseModel
 from .data import League
@@ -34,7 +33,7 @@ class Category(BaseModel):
 
     def to_button(self, callback: Callable[[discord.Interaction[Bot]], Coroutine[Any, Any, Any]]) -> ui.Button:
         button: ui.Button = ui.Button(label=self.name, emoji=self.emoji, style=getattr(discord.ButtonStyle, self._parent.style))
-        button.callback = lambda interaction: callback(interaction) # type: ignore[arg-type,method-assign]
+        button.callback = callback # type: ignore[arg-type,method-assign]
         
         return button
     

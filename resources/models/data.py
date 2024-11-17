@@ -227,7 +227,7 @@ class League(BaseModel):
     def get_value(self, category: str, key: str, default: Optional[Any]=None):
         return self[category].get(key, default)
 
-    def get_value_from_setting(self, setting: Setting):
+    def get_value_from_setting(self, setting: Setting) -> Any:
         return self[setting.type.database].get(setting.value, setting.default)
 
     @field_validator('teams')
