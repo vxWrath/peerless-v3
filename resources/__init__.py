@@ -13,5 +13,6 @@ from .utils import (
     unjsonify,
     create_subleague, 
     respond,
-    respond_with_edit
+    respond_with_edit,
+    get_matches
 )

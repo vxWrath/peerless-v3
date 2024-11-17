@@ -3,7 +3,9 @@ from __future__ import annotations
 import discord
 
 from datetime import datetime
-from typing import TYPE_CHECKING, Any, overload, Union, Dict, List, Optional
+from thefuzz.process import extract
+from thefuzz.utils import full_process
+from typing import TYPE_CHECKING, Any, overload, Union, Dict, List, Optional, Tuple
 
 from .models import League, SubLeague
 
@@ -79,3 +81,10 @@ async def respond_with_edit(interaction: discord.Interaction[Bot], **kwargs) -> 
     else:
         await interaction.response.edit_message(**kwargs)
         return None
+    
+def get_matches(query: str, choices: List[str], *, limit: int=5) -> List[Tuple[str, int]]:
+    query = full_process(query, force_ascii=True) if query else query
+    
+    if not query:
+        return [(x, 0) for x in choices][:limit]
+    return extract(query=query, choices=choices, limit=limit)

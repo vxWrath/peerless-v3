@@ -65,17 +65,11 @@ async def main():
     except asyncio.CancelledError:
         pass
     finally:
-        loop = asyncio.get_event_loop()
         bot_logger.info("Turning Off...")
 
         await bot.redis.client.aclose()
         await bot.database.pool.close()
         await bot.close()
-
-        tasks = asyncio.gather(*asyncio.all_tasks(loop=bot.loop), return_exceptions=False)
-        tasks.cancel()
-
-        await loop.shutdown_asyncgens()
             
         bot_logger.info("Turned Off")
         

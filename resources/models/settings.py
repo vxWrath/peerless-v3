@@ -53,7 +53,7 @@ class Setting(BaseModel):
 
     _parent: Category
     
-    def to_choice(self) -> app_commands.Choice:
+    def to_choice(self) -> app_commands.Choice[str]:
         return app_commands.Choice(name=self.name, value=self.value)
     
 class SettingType(BaseModel):
