@@ -1,14 +1,19 @@
 import asyncio
+import argparse
 import datetime
 from os import environ as env
 
 import colorlog
 import pytz
-from dotenv import load_dotenv
 
+from dotenv import load_dotenv
 load_dotenv()
 
 from resources import Bot, RedisClient, Database
+
+#parser = argparse.ArgumentParser()
+#parser.add_argument('--shard_id', type=int, required=True, help="Shard ID")
+#parser.add_argument('--shard_count', type=int, required=True, help="Total number of shards")
 
 class Formatter(colorlog.ColoredFormatter):
     def converter(self, timestamp):
@@ -28,9 +33,10 @@ class DiscordHandler(colorlog.StreamHandler):
             return super().handle(record)
     
 async def main():
-    token  = env[f'TOKEN']
-
-    bot = Bot()
+    token = env[f'TOKEN']
+    
+    #args = parser.parse_args()
+    bot  = Bot([0], 1)
 
     colors = colorlog.default_log_colors | {"DEBUG": "white"}
     

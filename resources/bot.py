@@ -24,15 +24,17 @@ from .namespace import Namespace
 from .redis import RedisClient
 from .utils import respond
 
-class Bot(commands.Bot):
-    def __init__(self) -> None:
+class Bot(commands.AutoShardedBot):
+    def __init__(self, shard_ids: List[int], shard_count: int) -> None:
         super().__init__(
             command_prefix = [],
             tree_cls = AppCommandTree,
             intents = intents,
             member_cache_flags = member_cache_flags,
             max_messages = None,
-            chunk_guilds_at_startup = False
+            chunk_guilds_at_startup = False,
+            shard_id = shard_ids,
+            shard_count = shard_count
         )
 
         self.redis: RedisClient

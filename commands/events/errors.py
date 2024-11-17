@@ -11,7 +11,9 @@ from discord import app_commands
 from discord.ext import commands
 from typing import Dict, Any
 
-from resources import Bot, League, SETTINGS, respond, CheckFailure, RolesAlreadyManaged, RolesAlreadyUsed
+from resources import Bot, League, respond, CheckFailure, RolesAlreadyManaged, RolesAlreadyUsed
+
+SETTINGS = {}
 
 logger = colorlog.getLogger('bot')
 discord_logger = colorlog.getLogger('discord')
